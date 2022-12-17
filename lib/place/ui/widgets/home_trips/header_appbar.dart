@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_platzi_trips/place/ui/widgets/home_trips/card_image_list.dart';
-import 'package:flutter_platzi_trips/place/ui/widgets/home_trips/gradient.dart';
+import 'package:flutter_platzi_trips/Place/ui/widgets/home_trips/card_image_list.dart';
+import 'package:flutter_platzi_trips/Place/ui/widgets/home_trips/gradient.dart';
 
 // ignore: use_key_in_widget_constructors
 class HeaderAppbar extends StatelessWidget {

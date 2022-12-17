@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platzi_trips/place/ui/widgets/home_trips/floating_action_button_green.dart';
+import 'package:flutter_platzi_trips/Place/ui/widgets/home_trips/floating_action_button_green.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class CardImage extends StatelessWidget {

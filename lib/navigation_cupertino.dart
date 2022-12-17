@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_platzi_trips/place/ui/screens/home_trips.dart';
-import 'package:flutter_platzi_trips/place/ui/screens/profile_trips.dart';
-import 'package:flutter_platzi_trips/place/ui/screens/search_trips.dart';
+import 'package:flutter_platzi_trips/Place/ui/screens/home_trips.dart';
+import 'package:flutter_platzi_trips/Place/ui/screens/profile_trips.dart';
+import 'package:flutter_platzi_trips/Place/ui/screens/search_trips.dart';
 
 // ignore: use_key_in_widget_constructors
 class BottomNavigationCupertino extends StatelessWidget {
