@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: use_key_in_widget_constructors
 class ProfileBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -9,7 +10,7 @@ class ProfileBackground extends StatelessWidget {
     return Container(
       width: screenWidth,
       height: screenHeight * 0.45,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               colors: [Color(0xFF4268D3), Color(0xFF584CD1)],
               begin: FractionalOffset(0.2, 0.0),
@@ -18,12 +19,12 @@ class ProfileBackground extends StatelessWidget {
               tileMode: TileMode.clamp)),
       child: FittedBox(
         fit: BoxFit.none,
-        alignment: Alignment(-1.5, -0.8),
+        alignment: const Alignment(-1.5, -0.8),
         child: Container(
           width: screenHeight,
           height: screenHeight,
           decoration: BoxDecoration(
-              color: Color.fromRGBO(0, 0, 0, 0.05),
+              color: const Color.fromRGBO(0, 0, 0, 0.05),
               borderRadius: BorderRadius.circular(screenHeight / 2)),
         ),
       ),
