@@ -6,11 +6,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_platzi_trips/Person/bloc/bloc_person.dart';
 import 'package:flutter_platzi_trips/Place/bloc/bloc_place.dart';
 import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
-import 'package:flutter_platzi_trips/platzi_trips.dart';
+import 'package:flutter_platzi_trips/User/ui/screens/sign_in_screen.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -25,8 +31,8 @@ class MyApp extends StatelessWidget {
       bloc: BlocPerson(),
       child: BlocProvider<BlocPlace>(
         bloc: BlocPlace(),
-        child: BlocProvider<BlocUser>(
-            bloc: BlocUser(),
+        child: BlocProvider<UserBloc>(
+            bloc: UserBloc(),
             child: MaterialApp(
                 title: 'Platzi Trips Demo',
                 theme: ThemeData(
@@ -42,7 +48,9 @@ class MyApp extends StatelessWidget {
                   // is not restarted.
                   primarySwatch: Colors.blue,
                 ),
-                home: PlatziTrips())),
+                home: SignInScreen()
+                // home: PlatziTrips()
+                )),
       ),
     );
   }

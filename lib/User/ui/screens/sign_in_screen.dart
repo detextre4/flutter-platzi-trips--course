@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
+import 'package:flutter_platzi_trips/widgets/button_green.dart';
+import 'package:flutter_platzi_trips/widgets/gradient_back.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+
+// ignore: use_key_in_widget_constructors
+class SignInScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SignInScreen();
+  }
+}
+
+// ignore: unused_element
+class _SignInScreen extends State<SignInScreen> {
+  late UserBloc userBloc;
+
+  @override
+  Widget build(BuildContext context) {
+    userBloc = BlocProvider.of(context);
+    return signInGoogleUi();
+  }
+
+  Widget signInGoogleUi() {
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          GradientBack("", screenHeight),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Welcome \n This is your Travel App",
+                style: TextStyle(
+                    fontSize: 33.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20),
+                child: ButtonGreen(
+                  text: "Login with Gmail",
+                  onPressed: () {
+                    // ignore: avoid_print
+                    userBloc.signIn().then((user) => print("es aqui -------------------> user is $user"));
+                  },
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}

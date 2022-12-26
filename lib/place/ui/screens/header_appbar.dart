@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/Place/ui/widgets/card_image_list.dart';
-import 'package:flutter_platzi_trips/Place/ui/widgets/gradient.dart';
+import 'package:flutter_platzi_trips/widgets/gradient_back.dart';
 
 // ignore: use_key_in_widget_constructors
 class HeaderAppbar extends StatelessWidget {
@@ -14,7 +14,7 @@ class HeaderAppbar extends StatelessWidget {
           ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0, tileMode: TileMode.clamp),
       child: Stack(
         children: [
-          GradientBack("Bienvenido"),
+          GradientBack("Bienvenido", 250.0),
           CardImageList(),
         ],
       ),
