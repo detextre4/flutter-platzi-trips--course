@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
+import 'package:flutter_platzi_trips/User/repository/firebase_auth_api.dart';
+import 'package:flutter_platzi_trips/platzi_trips.dart';
 import 'package:flutter_platzi_trips/widgets/button_green.dart';
 import 'package:flutter_platzi_trips/widgets/gradient_back.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'dart:developer';
 
 // ignore: use_key_in_widget_constructors
 class SignInScreen extends StatefulWidget {
@@ -19,7 +23,20 @@ class _SignInScreen extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
-    return signInGoogleUi();
+    return _handleCurrentSession();
+  }
+
+  Widget _handleCurrentSession() {
+    return StreamBuilder(
+        stream: userBloc.authStatus,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          // snapshot - data - Object User
+          if (!snapshot.hasData || snapshot.hasError) {
+            return signInGoogleUi();
+          } else {
+            return PlatziTrips();
+          }
+        });
   }
 
   Widget signInGoogleUi() {
@@ -45,8 +62,10 @@ class _SignInScreen extends State<SignInScreen> {
                 child: ButtonGreen(
                   text: "Login with Gmail",
                   onPressed: () {
-                    // ignore: avoid_print
-                    userBloc.signIn().then((user) => print("es aqui -------------------> user is $user"));
+                    userBloc.signIn().then(
+                        // ignore: avoid_print
+                        (User) =>
+                            {inspect(User), print("----> user is $User")});
                   },
                 ),
               )
