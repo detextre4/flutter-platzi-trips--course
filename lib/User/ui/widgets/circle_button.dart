@@ -8,9 +8,16 @@ class CircleButton extends StatefulWidget {
   double iconSize;
   // ignore: prefer_typing_uninitialized_variables
   var color;
+  final VoidCallback onPressed;
 
   // ignore: use_key_in_widget_constructors
-  CircleButton(this.mini, this.icon, this.iconSize, this.color);
+  CircleButton(
+    this.mini,
+    this.icon,
+    this.iconSize,
+    this.color,
+    this.onPressed,
+  );
 
   @override
   State<StatefulWidget> createState() {
@@ -19,15 +26,13 @@ class CircleButton extends StatefulWidget {
 }
 
 class _CircleButton extends State<CircleButton> {
-  void onPressedButton() {}
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: FloatingActionButton(
       backgroundColor: widget.color,
       mini: widget.mini,
-      onPressed: onPressedButton,
+      onPressed: widget.onPressed,
       child: Icon(
         widget.icon,
         size: widget.iconSize,

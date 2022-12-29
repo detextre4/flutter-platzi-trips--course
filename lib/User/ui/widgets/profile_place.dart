@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platzi_trips/User/model/place.dart';
+import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'profile_place_info.dart';
 
 // ignore: must_be_immutable
 class ProfilePlace extends StatelessWidget {
-  String image;
   Place place;
 
-  ProfilePlace(this.image, this.place, {super.key});
+  // ignore: use_key_in_widget_constructors
+  ProfilePlace(this.place);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,8 @@ class ProfilePlace extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10.0, bottom: 70.0),
       height: 220.0,
       decoration: BoxDecoration(
-          image: DecorationImage(fit: BoxFit.cover, image: AssetImage(image)),
+          image: DecorationImage(
+              fit: BoxFit.cover, image: NetworkImage(place.urlImage)),
           borderRadius: const BorderRadius.all(Radius.circular(20.0)),
           color: Colors.red,
           boxShadow: const <BoxShadow>[

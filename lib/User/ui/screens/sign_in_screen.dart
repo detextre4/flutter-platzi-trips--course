@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
-import 'package:flutter_platzi_trips/User/repository/firebase_auth_api.dart';
 import 'package:flutter_platzi_trips/platzi_trips.dart';
 import 'package:flutter_platzi_trips/widgets/button_green.dart';
 import 'package:flutter_platzi_trips/widgets/gradient_back.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'dart:developer';
+// ignore: library_prefixes
+import 'package:flutter_platzi_trips/User/model/user.dart' as ModelUser;
 
 // ignore: use_key_in_widget_constructors
 class SignInScreen extends StatefulWidget {
@@ -62,10 +62,14 @@ class _SignInScreen extends State<SignInScreen> {
                 child: ButtonGreen(
                   text: "Login with Gmail",
                   onPressed: () {
-                    userBloc.signIn().then(
-                        // ignore: avoid_print
-                        (User) =>
-                            {inspect(User), print("----> user is $User")});
+                    userBloc.signOut();
+                    userBloc.signIn().then((UserCredential user) {
+                      userBloc.updateUserData(ModelUser.User(
+                          name: user.user?.displayName ?? '',
+                          email: user.user?.email ?? '',
+                          photoURL: user.user?.photoURL ?? '',
+                          uid: user.user?.uid ?? ''));
+                    });
                   },
                 ),
               )
