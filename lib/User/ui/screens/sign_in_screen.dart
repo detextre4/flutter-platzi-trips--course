@@ -19,10 +19,13 @@ class SignInScreen extends StatefulWidget {
 // ignore: unused_element
 class _SignInScreen extends State<SignInScreen> {
   late UserBloc userBloc;
+  late double screenWidth;
 
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of(context);
+    screenWidth = MediaQuery.of(context).size.width;
+
     return _handleCurrentSession();
   }
 
@@ -40,22 +43,24 @@ class _SignInScreen extends State<SignInScreen> {
   }
 
   Widget signInGoogleUi() {
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
         children: [
-          GradientBack("", screenHeight),
+          GradientBack(height: null),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Welcome \n This is your Travel App",
-                style: TextStyle(
-                    fontSize: 33.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+              Flexible(
+                child: SizedBox(
+                    width: screenWidth,
+                    child: const Text(
+                      "Welcome \n This is your Travel App",
+                      style: TextStyle(
+                          fontSize: 33.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20),

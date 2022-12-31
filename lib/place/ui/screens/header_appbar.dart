@@ -14,7 +14,7 @@ class HeaderAppbar extends StatelessWidget {
           ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0, tileMode: TileMode.clamp),
       child: Stack(
         children: [
-          GradientBack("Bienvenido", 250.0),
+          GradientBack(title: "Bienvenido", height: 250.0),
           CardImageList(),
         ],
       ),
