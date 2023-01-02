@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_platzi_trips/Place/ui/screens/home_trips.dart';
+import 'package:flutter_platzi_trips/Place/ui/screens/search_trips.dart';
 import 'package:flutter_platzi_trips/User/ui/screens/profile_trips.dart';
-import 'package:flutter_platzi_trips/Person/ui/screens/search_trips.dart';
 import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
