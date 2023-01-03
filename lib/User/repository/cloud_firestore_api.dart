@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_platzi_trips/User/model/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_platzi_trips/Place/model/place.dart';
+// ignore: library_prefixes
+import 'package:flutter_platzi_trips/User/model/user.dart' as ModelUser;
 
 class CloudFirestoreApi {
   // ignore: non_constant_identifier_names
@@ -8,8 +11,9 @@ class CloudFirestoreApi {
   final String PLACES = "places";
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void updateUserData(User user) async {
+  void updateUserData(ModelUser.User user) async {
     // ignore: unused_local_variable
     DocumentReference ref = _db.collection(USERS).doc(user.uid);
 
@@ -22,6 +26,18 @@ class CloudFirestoreApi {
       "myFavoritePlaces": user.myFavoritePlaces,
       "lastsignIn": DateTime.now(),
     }, SetOptions(merge: true));
+  }
+
+  Future<void> updatePlaceData(Place place) async {
+    CollectionReference refPlaces = _db.collection(PLACES);
+    User? user = _auth.currentUser;
+
+    await refPlaces.add({
+      'name': place.name,
+      'description': place.description,
+      'likes': place.likes,
+      'userOwner': "$USERS/${user?.uid}", // reference..
+    });
   }
 }
 

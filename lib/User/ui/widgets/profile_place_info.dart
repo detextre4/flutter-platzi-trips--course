@@ -5,7 +5,6 @@ import 'package:flutter_platzi_trips/widgets/floating_action_button_green.dart';
 // ignore: must_be_immutable
 class ProfilePlaceInfo extends StatelessWidget {
   Place place;
-
   ProfilePlaceInfo(this.place, {super.key});
 
   @override
@@ -71,7 +70,13 @@ class ProfilePlaceInfo extends StatelessWidget {
 
     return Stack(
       alignment: const Alignment(0.8, 1.25),
-      children: <Widget>[card, FloatingActionButtonGreen()],
+      children: <Widget>[
+        card,
+        FloatingActionButtonGreen(
+          iconData: Icons.favorite_border,
+          onPressed: () {},
+        )
+      ],
     );
   }
 }

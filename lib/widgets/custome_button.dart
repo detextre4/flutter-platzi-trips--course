@@ -2,25 +2,16 @@ import 'package:flutter/material.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class CustomeButton extends StatelessWidget {
-  String buttonText = "Navigate";
-
-  CustomeButton(this.buttonText, {super.key});
+  final String buttonText;
+  final VoidCallback onPressed;
+  const CustomeButton(
+      {super.key, required this.buttonText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       // on tap
-      onTap: (() {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: const Text('Yay! A SnackBar!'),
-          action: SnackBarAction(
-            label: 'Undo',
-            onPressed: () {
-              // Some code to undo the change.
-            },
-          ),
-        ));
-      }),
+      onTap: onPressed,
       // child
       child: Container(
         height: 50.0,

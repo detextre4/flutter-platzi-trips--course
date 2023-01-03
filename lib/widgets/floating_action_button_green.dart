@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 // ignore: use_key_in_widget_constructors
 class FloatingActionButtonGreen extends StatefulWidget {
+  final IconData iconData;
+  final VoidCallback onPressed;
+  const FloatingActionButtonGreen(
+      {super.key, required this.iconData, required this.onPressed});
+
   @override
   State<StatefulWidget> createState() {
     return _FloatingActionButtonGreen();
@@ -40,7 +45,7 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
         backgroundColor: const Color(0xff11da53),
         mini: true,
         tooltip: "Fav",
-        onPressed: onPressedFav,
+        onPressed: widget.onPressed,
         child: Icon(
           _buttonPressed ? Icons.favorite : Icons.favorite_border,
         ));

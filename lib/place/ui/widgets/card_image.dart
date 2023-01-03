@@ -3,19 +3,30 @@ import 'package:flutter_platzi_trips/widgets/floating_action_button_green.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class CardImage extends StatelessWidget {
-  String pathImage =
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png";
+  final double width;
+  final double height;
+  double left;
+  final String pathImage;
+  final VoidCallback onPressedFavicon;
+  final IconData iconData;
 
-  CardImage(this.pathImage, {super.key});
+  CardImage({
+    super.key,
+    required this.pathImage,
+    this.left = 20.0,
+    this.width = 300,
+    this.height = 250,
+    required this.onPressedFavicon,
+    required this.iconData,
+  });
 
   @override
   Widget build(BuildContext context) {
     final card = Container(
-      height: 350.0,
-      width: 250.0,
-      margin: const EdgeInsets.only(
-        top: 80.0,
-        left: 20.0,
+      height: height,
+      width: width,
+      margin: EdgeInsets.only(
+        left: left,
       ),
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
@@ -32,7 +43,13 @@ class CardImage extends StatelessWidget {
 
     return Stack(
       alignment: const Alignment(0.9, 1.1),
-      children: [card, FloatingActionButtonGreen()],
+      children: [
+        card,
+        FloatingActionButtonGreen(
+          iconData: Icons.accessibility_new_rounded,
+          onPressed: () {},
+        )
+      ],
     );
   }
 }

@@ -5,7 +5,7 @@ class Place {
   late String id;
   String name;
   String description;
-  String urlImage;
+  dynamic urlImage;
   int likes;
   User? userOwner;
 
@@ -13,7 +13,7 @@ class Place {
       {Key? key,
       required this.name,
       required this.description,
-      required this.urlImage,
+      this.urlImage,
       this.likes = 0,
       this.userOwner});
 }

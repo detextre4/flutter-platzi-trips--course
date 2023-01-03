@@ -1,5 +1,6 @@
 // import 'dart:async';
 
+import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/User/repository/auth_repository.dart';
 import 'package:flutter_platzi_trips/User/repository/cloud_firestore_repository.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -19,14 +20,16 @@ class UserBloc implements Bloc {
   // casos uso
 
   // 1. sigIn to the google app
-  Future<UserCredential> signIn() {
-    return _auth_repository.signInFirebase();
-  }
+  Future<UserCredential> signIn() => _auth_repository.signInFirebase();
 
   // 2. register user in database
   final _cloudFirestoreRepository = CloudFirestoreRepository();
+
   void updateUserData(userModel.User user) =>
       _cloudFirestoreRepository.updateUserDataFirestore(user);
+
+  Future<void> updatePlaceData(Place place) =>
+      _cloudFirestoreRepository.updatePlaceData(place);
 
   signOut() {
     _auth_repository.signOut();

@@ -70,7 +70,20 @@ class DescriptionPlace extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
-                child: CustomeButton("Navigate"),
+                child: CustomeButton(
+                  buttonText: "Navigate",
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text('Yay! A SnackBar!'),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          // Some code to undo the change.
+                        },
+                      ),
+                    ));
+                  },
+                ),
               )
             ],
           ),
