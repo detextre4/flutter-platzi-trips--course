@@ -19,11 +19,9 @@ class AddPlaceScreen extends StatefulWidget {
   AddPlaceScreen({super.key, required this.image});
 
   @override
-  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() {
     // ignore: todo
     // TODO: implement createState
-    print("--------------> $image");
     return _AddPlaceScreen();
   }
 }
