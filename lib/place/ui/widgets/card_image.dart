@@ -9,6 +9,7 @@ class CardImage extends StatelessWidget {
   final String pathImage;
   final VoidCallback onPressedFavicon;
   final IconData iconData;
+  final bool imageType;
 
   CardImage({
     super.key,
@@ -18,6 +19,7 @@ class CardImage extends StatelessWidget {
     this.height = 250,
     required this.onPressedFavicon,
     required this.iconData,
+    this.imageType = true,
   });
 
   @override
@@ -31,7 +33,10 @@ class CardImage extends StatelessWidget {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           image: DecorationImage(
-              fit: BoxFit.cover, image: NetworkImage(pathImage)),
+              fit: BoxFit.cover,
+              image: imageType
+                  ? NetworkImage(pathImage)
+                  : AssetImage(pathImage) as ImageProvider),
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
           boxShadow: const [
             BoxShadow(

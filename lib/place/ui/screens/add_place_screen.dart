@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/Place/ui/widgets/card_image.dart';
@@ -10,19 +8,22 @@ import 'package:flutter_platzi_trips/widgets/gradient_back.dart';
 import 'package:flutter_platzi_trips/widgets/text_input.dart.dart';
 import 'package:flutter_platzi_trips/widgets/title_header.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:image_picker/image_picker.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
 class AddPlaceScreen extends StatefulWidget {
   final _controllerTitlePlace = TextEditingController();
   final _controllerDescriptionPlace = TextEditingController();
   final _controllerLocationPlace = TextEditingController();
-  File? image;
+  XFile image;
   AddPlaceScreen({super.key, required this.image});
 
   @override
+  // ignore: no_logic_in_create_state
   State<StatefulWidget> createState() {
     // ignore: todo
     // TODO: implement createState
+    print("--------------> $image");
     return _AddPlaceScreen();
   }
 }
@@ -73,10 +74,10 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                     margin: const EdgeInsets.only(bottom: 20.0),
                     alignment: Alignment.center,
                     child: CardImage(
+                      imageType: false,
                       width: 350,
                       left: 0,
-                      pathImage: widget.image?.path ??
-                          "https://letsenhance.io/static/334225cab5be263aad8e3894809594ce/75c5a/MainAfter.jpg",
+                      pathImage: widget.image.path,
                       iconData: Icons.camera_alt,
                       onPressedFavicon: () {},
                     ),
