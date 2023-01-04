@@ -5,7 +5,8 @@ import 'package:flutter_platzi_trips/widgets/floating_action_button_green.dart';
 // ignore: must_be_immutable
 class ProfilePlaceInfo extends StatelessWidget {
   Place place;
-  ProfilePlaceInfo(this.place, {super.key});
+  // ignore: use_key_in_widget_constructors
+  ProfilePlaceInfo(this.place);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,9 @@ class ProfilePlaceInfo extends StatelessWidget {
         card,
         FloatingActionButtonGreen(
           iconData: Icons.favorite_border,
-          onPressed: () {},
+          onPressed: () {
+            // missing function here
+          },
         )
       ],
     );

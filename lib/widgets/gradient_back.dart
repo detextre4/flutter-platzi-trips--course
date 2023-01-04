@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable, use_key_in_widget_constructors
 class GradientBack extends StatelessWidget {
   // String title = "Popular";
-  dynamic title;
+  String title;
   dynamic height;
 
-  GradientBack({super.key, this.height, this.title});
+  GradientBack({super.key, this.height, this.title = ""});
 
   @override
   Widget build(BuildContext context) {

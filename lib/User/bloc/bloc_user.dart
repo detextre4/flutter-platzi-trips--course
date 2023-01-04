@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/Place/repository/firebase_storage_repository.dart';
-import 'package:flutter_platzi_trips/Place/ui/widgets/card_image.dart';
 import 'package:flutter_platzi_trips/User/repository/auth_repository.dart';
 import 'package:flutter_platzi_trips/User/repository/cloud_firestore_repository.dart';
 import 'package:flutter_platzi_trips/User/ui/widgets/profile_place.dart';
@@ -37,8 +36,9 @@ class UserBloc implements Bloc {
 
   Stream placeListStream() => _cloudFirestoreRepository.placeListStream();
   Stream get placesStream => placeListStream();
-  List<CardImage> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
-      _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
+  List<Place> buildPlaces(
+          List<DocumentSnapshot> placesListSnapshot, userModel.User user) =>
+      _cloudFirestoreRepository.buildPlaces(placesListSnapshot, user);
 
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceData(place);
@@ -50,6 +50,9 @@ class UserBloc implements Bloc {
       _cloudFirestoreRepository.placesCollectionByUserIdFirestore(uid);
   List<ProfilePlace> buildMyPlaces(List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFirestoreRepository.buildMyPlaces(placesListSnapshot);
+
+  Future likePlace(Place place, String idPlace) =>
+      _cloudFirestoreRepository.likePlace(place, idPlace);
 
   signOut() {
     _auth_repository.signOut();

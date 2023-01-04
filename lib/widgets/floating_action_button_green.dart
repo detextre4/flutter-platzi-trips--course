@@ -14,29 +14,27 @@ class FloatingActionButtonGreen extends StatefulWidget {
 }
 
 class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
-  bool _buttonPressed = false;
-  IconData favIcon = Icons.favorite_border;
+  // bool _buttonPressed = false;
+  // IconData favIcon = Icons.favorite_border;
 
-  void onPressedFav() {
-    setState(() {
-      _buttonPressed = !_buttonPressed;
-    });
+  // void onPressedFav() {
+  //   setState(() {
+  //     _buttonPressed = !_buttonPressed;
+  //   });
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      behavior: SnackBarBehavior.floating,
-      content: SizedBox(
-        child: Text(
-            _buttonPressed ? 'added to favorites' : 'removed from favorites'),
-      ),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
-    ));
-  }
+  //   ScaffoldMessenger.of(context).clearSnackBars();
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     behavior: SnackBarBehavior.floating,
+  //     content: SizedBox(
+  //       child: Text(
+  //           _buttonPressed ? 'added to favorites' : 'removed from favorites'),
+  //     ),
+  //     action: SnackBarAction(
+  //       label: 'Undo',
+  //       onPressed: () {},
+  //     ),
+  //   ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +44,6 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
         mini: true,
         tooltip: "Fav",
         onPressed: widget.onPressed,
-        child: Icon(
-          _buttonPressed ? Icons.favorite : Icons.favorite_border,
-        ));
+        child: Icon(widget.iconData));
   }
 }

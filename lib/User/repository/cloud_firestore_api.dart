@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
-import 'package:flutter_platzi_trips/Place/ui/widgets/card_image.dart';
 // ignore: library_prefixes
 import 'package:flutter_platzi_trips/User/model/user.dart' as ModelUser;
 import 'package:flutter_platzi_trips/User/ui/widgets/profile_place.dart';
@@ -84,40 +82,60 @@ class CloudFirestoreApi {
         .snapshots();
   }
 
-  List<CardImage> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
-    List<CardImage> placesCard = <CardImage>[];
-    double width = 300.0;
-    double height = 250.0;
-    double left = 20.0;
-    IconData iconData = Icons.favorite_border;
+  List<Place> buildPlaces(
+      List<DocumentSnapshot> placesListSnapshot, ModelUser.User user) {
+    // List<CardImage> placesCard = <CardImage>[];
+    // double width = 300.0;
+    // double height = 250.0;
+    // double left = 20.0;
+    // IconData iconData = Icons.favorite_border;
 
-    for (var place in placesListSnapshot) {
-      placesCard.add(CardImage(
-          pathImage: place["urlImage"],
-          width: width,
-          height: height,
-          left: left,
-          onPressedFavicon: () {},
-          iconData: iconData));
+    // for (var place in placesListSnapshot) {
+    //   placesCard.add(CardImage(
+    //       pathImage: place["urlImage"],
+    //       width: width,
+    //       height: height,
+    //       left: left,
+    //       onPressedFavicon: () {},
+    //       iconData: iconData));
+    // }
+    // return placesCard;
+
+    List<Place> places = [];
+
+    for (var p in placesListSnapshot) {
+      Place place = Place(
+          id: p.id,
+          name: p["name"],
+          description: p["description"],
+          urlImage: p["urlImage"],
+          likes: p["likes"]);
+      place.liked = false;
+      List usersLikedRefs = p["liked"];
+      for (var drUL in usersLikedRefs) {
+        if (user.uid == drUL.id) {
+          place.liked = true;
+        }
+      }
+      places.add(place);
     }
-    return placesCard;
+    return places;
+  }
+
+  Future likePlace(Place place, String uid) async {
+    await _db
+        .collection(PLACES)
+        .doc(place.id)
+        .get()
+        .then((DocumentSnapshot ds) {
+      int likes = ds["likes"];
+
+      _db.collection(PLACES).doc(place.id).update({
+        'likes': place.liked ? likes + 1 : likes - 1,
+        'liked': place.liked
+            ? FieldValue.arrayUnion([_db.doc("$USERS/$uid")])
+            : FieldValue.arrayRemove([_db.doc("$USERS/$uid")])
+      });
+    });
   }
 }
-
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter_platzi_trips/User/model/user.dart';
-
-// class CloudFirestoreAPI {
-//   // ignore: non_constant_identifier_names
-//   final String USERS = 'users';
-//   // ignore: non_constant_identifier_names
-//   final String PLACE = 'places';
-
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-//   Future<void> updateUserData(User user) async {
-//     CollectionReference users = _firestore.collection(USERS);
-//     // ignore: unused_local_variable
-//     DocumentReference ref = users.doc(user.uid);
-//   }
-// }

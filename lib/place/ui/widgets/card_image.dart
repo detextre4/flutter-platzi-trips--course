@@ -51,8 +51,8 @@ class CardImage extends StatelessWidget {
       children: [
         card,
         FloatingActionButtonGreen(
-          iconData: Icons.accessibility_new_rounded,
-          onPressed: () {},
+          iconData: iconData,
+          onPressed: onPressedFavicon,
         )
       ],
     );
