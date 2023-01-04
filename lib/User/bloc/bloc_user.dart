@@ -2,10 +2,12 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/Place/repository/firebase_storage_repository.dart';
 import 'package:flutter_platzi_trips/User/repository/auth_repository.dart';
 import 'package:flutter_platzi_trips/User/repository/cloud_firestore_repository.dart';
+import 'package:flutter_platzi_trips/User/ui/widgets/profile_place.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // ignore: library_prefixes
@@ -32,11 +34,17 @@ class UserBloc implements Bloc {
   void updateUserData(userModel.User user) =>
       _cloudFirestoreRepository.updateUserDataFirestore(user);
 
+  Stream placeListStream() => _cloudFirestoreRepository.placeListStream();
+  Stream get placesStream => placeListStream();
+
   Future<void> updatePlaceData(Place place) =>
       _cloudFirestoreRepository.updatePlaceData(place);
 
   Future<UploadTask> uploadFile(String path, File image) =>
       _firebaseStorageRepository.uploadFile(path, image);
+
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
+      _cloudFirestoreRepository.buildPlaces(placesListSnapshot);
 
   signOut() {
     _auth_repository.signOut();

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 // ignore: library_prefixes
 import 'package:flutter_platzi_trips/User/model/user.dart' as ModelUser;
+import 'package:flutter_platzi_trips/User/ui/widgets/profile_place.dart';
 
 class CloudFirestoreApi {
   // ignore: non_constant_identifier_names
@@ -48,6 +49,27 @@ class CloudFirestoreApi {
         });
       });
     });
+  }
+
+  Stream<QuerySnapshot> placeListStream() {
+    User? user = _auth.currentUser; //Para saber el uid del usuario actual
+
+    return _db
+        .collection(PLACES)
+        .where('userOwner', isEqualTo: _db.collection(USERS).doc(user?.uid))
+        .snapshots();
+  }
+
+  List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) {
+    List<ProfilePlace> profilePlaces = <ProfilePlace>[];
+
+    for (var place in placesListSnapshot) {
+      profilePlaces.add(ProfilePlace(Place(
+          name: place['name'],
+          description: place['description'],
+          urlImage: place['urlImage'])));
+    }
+    return profilePlaces;
   }
 }
 
