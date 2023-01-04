@@ -67,9 +67,19 @@ class CloudFirestoreApi {
       profilePlaces.add(ProfilePlace(Place(
           name: place['name'],
           description: place['description'],
-          urlImage: place['urlImage'])));
+          urlImage: place['urlImage'],
+          likes: place['likes'])));
     }
     return profilePlaces;
+  }
+
+  Stream<QuerySnapshot> placesCollectionByUserId(String uid) {
+    // ignore: no_leading_underscores_for_local_identifiers
+    DocumentReference _userRef = _db.collection(USERS).doc(uid);
+    return _db
+        .collection(PLACES)
+        .where("userOwner", isEqualTo: _userRef)
+        .snapshots();
   }
 }
 

@@ -18,4 +18,7 @@ class CloudFirestoreRepository {
 
   List<ProfilePlace> buildPlaces(List<DocumentSnapshot> placesListSnapshot) =>
       _cloudFirestoreApi.buildPlaces(placesListSnapshot);
+
+  Stream<QuerySnapshot> placesCollectionByUserIdFirestore(String uid) =>
+      _cloudFirestoreApi.placesCollectionByUserId(uid);
 }
