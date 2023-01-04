@@ -1,5 +1,6 @@
 // import 'dart:async';
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,6 +58,11 @@ class UserBloc implements Bloc {
   signOut() {
     _auth_repository.signOut();
   }
+
+  // stream controller
+  StreamController placeSelectedStreamController = StreamController();
+  Stream get placeSelectedStream => placeSelectedStreamController.stream;
+  StreamSink get placeSelectedSink => placeSelectedStreamController.sink;
 
   @override
   void dispose() {}
