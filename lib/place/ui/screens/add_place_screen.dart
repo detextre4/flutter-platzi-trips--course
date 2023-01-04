@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/Place/ui/widgets/card_image.dart';
@@ -110,19 +113,40 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
 
-                              // 1. firebase Storage
-                              userBloc
-                                  .updatePlaceData(Place(
-                                      name: widget._controllerTitlePlace.text,
-                                      description: widget
-                                          ._controllerDescriptionPlace.text,
-                                      likes: 0))
-                                  .whenComplete(
-                                      // ignore: avoid_print
-                                      () => {Navigator.pop(context)});
-                              // url
-                              // 2. Cloud Firestore
-                              // 3. Place - title, destruction, url, userOwner, likes
+                              // ID of current user logged
+                              UserBloc().currentUser().then((user) {
+                                if (user != null) {
+                                  String uid = user.uid;
+                                  String path =
+                                      "$uid/${DateTime.now().toString()}.jpg";
+                                  // 1. firebase Storage
+                                  // url
+
+                                  userBloc
+                                      .uploadFile(path, File(widget.image.path))
+                                      .then((UploadTask uploadTask) {
+                                    uploadTask.then((TaskSnapshot snapshot) {
+                                      snapshot.ref
+                                          .getDownloadURL()
+                                          .then((urlImage) {
+                                        // 2. Cloud Firestore
+                                        // Place - title, description, url, userOwner, likes
+                                        userBloc
+                                            .updatePlaceData(Place(
+                                                name: widget
+                                                    ._controllerTitlePlace.text,
+                                                description: widget
+                                                    ._controllerDescriptionPlace
+                                                    .text,
+                                                urlImage: urlImage,
+                                                likes: 0))
+                                            .whenComplete(
+                                                () => {Navigator.pop(context)});
+                                      });
+                                    });
+                                  });
+                                }
+                              });
                             }
                           }))
                 ],
