@@ -27,17 +27,29 @@ class GradientBack extends StatelessWidget {
               stops: [0.0, 0.6],
               tileMode: TileMode.clamp)),
       alignment: const Alignment(-0.9, -0.6),
-      child: FittedBox(
-        fit: BoxFit.none,
-        alignment: const Alignment(-1.5, -0.8),
-        child: Container(
-          width: screenHeight,
-          height: screenHeight,
-          decoration: BoxDecoration(
-              color: const Color.fromRGBO(0, 0, 0, 0.05),
-              borderRadius: BorderRadius.circular(screenHeight / 2)),
+      child: Stack(children: [
+        Container(
+          margin: const EdgeInsets.only(top: 20.0, left: 10.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
+        FittedBox(
+          fit: BoxFit.none,
+          alignment: const Alignment(-1.5, -0.8),
+          child: Container(
+            width: screenHeight,
+            height: screenHeight,
+            decoration: BoxDecoration(
+                color: const Color.fromRGBO(0, 0, 0, 0.05),
+                borderRadius: BorderRadius.circular(screenHeight / 2)),
+          ),
+        ),
+      ]),
       // child: Text(
       //   title,
       //   style: const TextStyle(
