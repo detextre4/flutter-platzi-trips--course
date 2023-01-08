@@ -34,10 +34,18 @@ class DescriptionPlace extends StatelessWidget {
             allowHalfRating: true,
             itemCount: 5,
             itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
+            itemBuilder: (context, i) {
+              if (i % 2 != 0) {
+                return const Icon(
+                  Icons.heart_broken_rounded,
+                  color: Colors.redAccent,
+                );
+              }
+              return const Icon(
+                Icons.star,
+                color: Colors.amber,
+              );
+            },
             onRatingUpdate: (rating) {
               // ignore: avoid_print
               print(rating);
