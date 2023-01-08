@@ -106,12 +106,16 @@ class CloudFirestoreApi {
     for (var p in placesListSnapshot) {
       Place place = Place(
           id: p.id,
-          name: p["name"],
-          description: p["description"],
-          urlImage: p["urlImage"],
-          likes: p["likes"]);
+          name: p.data().toString().contains('name') ? p["name"] : '',
+          description: p.data().toString().contains('description')
+              ? p["description"]
+              : '',
+          urlImage:
+              p.data().toString().contains('urlImage') ? p["urlImage"] : '',
+          likes: p.data().toString().contains('likes') ? p["likes"] : 0);
       place.liked = false;
-      List usersLikedRefs = p["liked"];
+      List usersLikedRefs =
+          p.data().toString().contains('liked') ? p["liked"] : [];
       for (var drUL in usersLikedRefs) {
         if (user.uid == drUL.id) {
           place.liked = true;
@@ -128,7 +132,7 @@ class CloudFirestoreApi {
         .doc(place.id)
         .get()
         .then((DocumentSnapshot ds) {
-      int likes = ds["likes"];
+      int likes = ds.data().toString().contains('likes') ? ds["likes"] : 0;
 
       _db.collection(PLACES).doc(place.id).update({
         'likes': place.liked ? likes + 1 : likes - 1,

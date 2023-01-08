@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platzi_trips/Place/model/place.dart';
 import 'package:flutter_platzi_trips/User/bloc/bloc_user.dart';
 import 'package:flutter_platzi_trips/widgets/custome_button.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 // ignore: use_key_in_widget_constructors, must_be_immutable
@@ -26,16 +27,32 @@ class DescriptionPlace extends StatelessWidget {
                   fontWeight: FontWeight.w900,
                 )),
           ),
-          Row(
-            children: [
-              Star(const Color(0xFFf2c611), const Icon(Icons.star)),
-              Star(const Color(0xFFf2c611), const Icon(Icons.star)),
-              Star(const Color(0xFFf2c611), const Icon(Icons.star)),
-              Star(const Color(0xFFf2c611), const Icon(Icons.star_half)),
-              Star(const Color.fromARGB(255, 242, 198, 222),
-                  const Icon(Icons.star_border))
-            ],
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => const Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              // ignore: avoid_print
+              print(rating);
+            },
           ),
+          // Row(
+          //   children: [
+          //     Star(const Color(0xFFf2c611), const Icon(Icons.star)),
+          //     Star(const Color(0xFFf2c611), const Icon(Icons.star)),
+          //     Star(const Color(0xFFf2c611), const Icon(Icons.star)),
+          //     Star(const Color(0xFFf2c611), const Icon(Icons.star_half)),
+          //     Star(const Color.fromARGB(255, 242, 198, 222),
+          //         const Icon(Icons.star_border))
+          //   ],
+          // ),
         ],
       );
     }
